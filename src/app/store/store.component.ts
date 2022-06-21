@@ -2,15 +2,26 @@ import { Component } from '@angular/core';
 import { Product } from '../model/product.model';
 import { ProductRepository } from '../model/product.repository';
 
+interface PerPage {
+  value: number;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.css']
 })
 export class StoreComponent {
-  public selectedCategory!: string | undefined;
-  public productsPerPage = 4;
+  public selectedCategory: string = '';
+  public productsPerPage = 8;
   public selectedPage = 1;
+
+  options: PerPage[] = [
+    {value: 2, viewValue: '2 per page'},
+    {value: 5, viewValue: '5 per page'},
+    {value: 8, viewValue: '8 per page'},
+  ];
 
   constructor(private repository: ProductRepository) { }
 
@@ -24,7 +35,7 @@ export class StoreComponent {
       return this.repository.getCategories();
   }
 
-  changeCategory(newCategory?: string) {
+  changeCategory(newCategory: string = '') {
       this.selectedCategory = newCategory;
   }
 
@@ -32,7 +43,8 @@ export class StoreComponent {
       this.selectedPage = newPage;
   }
 
-  changePageSize(newSize: number) {
+  changePageSize(event: any) {
+      const newSize = event.target.value;
       this.productsPerPage = Number(newSize);
       this.changePage(1);
   }
@@ -42,9 +54,9 @@ export class StoreComponent {
           .getProducts(this.selectedCategory).length / this.productsPerPage)
   }
 
-  //get pageNumbers(): number[] {
-  //    return Array(Math.ceil(this.repository
-  //        .getProducts(this.selectedCategory).length / this.productsPerPage))
-  //            .fill(0).map((x, i) => i + 1);
-  //}
+  get pageNumbers(): number[] {
+      return Array(Math.ceil(this.repository
+         .getProducts(this.selectedCategory).length / this.productsPerPage))
+              .fill(0).map((x, i) => i + 1);
+  }
 }

@@ -1,42 +1,54 @@
-<mat-toolbar>
-  <div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center">
-
-    <span>My store</span>
-    <span class="spacer"></span>
-
-    <button mat-button class="m-l"
+<mat-toolbar color="primary">
+  <div class="wrapper">
+    <span>My Store</span>
+  </div>
+</mat-toolbar>
+<div class="wrapper p-t" fxLayoutGap="16px">
+  <div fxFlex fxLayout="column">
+    <button fxFlexOrder="2" mat-button
     *ngFor="let cat of categories"
     [class.active]="cat == selectedCategory" (click)="changeCategory(cat)">
     {{cat}}
     </button>
 
-    <button mat-mini-fab color="primary" class="m-l" aria-label="Category"
+    <button fxFlexOrder="1" mat-button color="primary" aria-label="Category"
     (click)="changeCategory()">
-      <mat-icon>home</mat-icon>
+      All
     </button>
-    </div>
-</mat-toolbar>
-
-<div class="wrapper">
-  <p>{{categories.length}}</p>
-  <p>{{products.length}}</p>
-  <div class="collection-products">
-    <mat-card *ngFor="let product of products">
-      <mat-card-title>{{product.name}}</mat-card-title>
-      <mat-card-subtitle>{{ product.price | currency:"USD":"symbol":"2.2-2" }}</mat-card-subtitle>
-      <mat-card-actions align="end">
-        <button mat-button>Like</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
-
-    <mat-card>
-      <mat-card-title>Actions Buttons</mat-card-title>
-      <mat-card-subtitle>End</mat-card-subtitle>
-      <mat-card-actions align="end">
-        <button mat-button>Like</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
   </div>
+
+  <section fxFlex fxGrow="4">
+    <h4>Всего категорий: {{categories.length}}</h4>
+    <h4>Всего продуктов: {{products.length}}</h4>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Choose per page</mat-label>
+      <mat-select [(value)]="productsPerPage">
+        <mat-option [value]="option.value" *ngFor="let option of options">{{ option.viewValue }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="collection-products">
+      <mat-card *ngFor="let product of products">
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <mat-card-subtitle>{{ product.price | currency:"USD":"symbol":"2.2-2" }}</mat-card-subtitle>
+        <mat-card-content>
+          {{product.description}}
+        </mat-card-content>
+      </mat-card>
+
+      <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+      </mat-paginator>
+
+      <div>
+        <button *counter="let page of pageCount" (click)="changePage(page)"
+        [class.active]="page == selectedPage">
+        {{page}}
+        </button>
+      </div>
+    </div>
+  </section>
 </div>

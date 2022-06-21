@@ -13,6 +13,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {MatCardModule} from '@angular/material/card';
     MatIconModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatPaginatorModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

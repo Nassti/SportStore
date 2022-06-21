@@ -1,9 +1,4 @@
-.spacer {
-  flex: 1 1 auto;
+.p-t {
+  padding-top: 32px;
 }
-.m-l + .m-l {
-  margin-left: 8px;
-}
-.bg-orange {
-  background-color: orange;
-}
+

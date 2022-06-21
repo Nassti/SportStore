@@ -16,9 +16,14 @@ export class ProductRepository {
         });
     }
 
-    getProducts(category: string = ''): Product[] {
+    getProducts(category: string): Product[] {
+      if (category != '') {
         return this.products
             .filter(p => category == null || category == p.category);
+          }
+      else {
+        return this.products;
+      }
     }
 
     getProduct(id: number): Product | undefined {
