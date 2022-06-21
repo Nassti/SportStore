@@ -1,0 +1,42 @@
+<mat-toolbar>
+  <div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center">
+
+    <span>My store</span>
+    <span class="spacer"></span>
+
+    <button mat-button class="m-l"
+    *ngFor="let cat of categories"
+    [class.active]="cat == selectedCategory" (click)="changeCategory(cat)">
+    {{cat}}
+    </button>
+
+    <button mat-mini-fab color="primary" class="m-l" aria-label="Category"
+    (click)="changeCategory()">
+      <mat-icon>home</mat-icon>
+    </button>
+    </div>
+</mat-toolbar>
+
+<div class="wrapper">
+  <p>{{categories.length}}</p>
+  <p>{{products.length}}</p>
+  <div class="collection-products">
+    <mat-card *ngFor="let product of products">
+      <mat-card-title>{{product.name}}</mat-card-title>
+      <mat-card-subtitle>{{ product.price | currency:"USD":"symbol":"2.2-2" }}</mat-card-subtitle>
+      <mat-card-actions align="end">
+        <button mat-button>Like</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Actions Buttons</mat-card-title>
+      <mat-card-subtitle>End</mat-card-subtitle>
+      <mat-card-actions align="end">
+        <button mat-button>Like</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
